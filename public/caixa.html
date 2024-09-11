@@ -1,0 +1,39 @@
+<!-- public/caixa.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Caixa - Bolos da Vovó</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Caixa - Bolos da Vovó</h1>
+    <form id="pedidoForm">
+        <label for="bolo">Escolha o sabor do bolo:</label>
+        <select id="bolo" name="bolo">
+            <option value="chocolate">Bolo de Chocolate com Brigadeiro</option>
+            <option value="red-velvet">Bolo Sabor Red Velvet</option>
+            <option value="cenoura">Bolo Sabor Cenoura</option>
+        </select>
+        <button type="button" onclick="fazerPedido()">Fazer Pedido</button>
+    </form>
+
+    <script>
+        function fazerPedido() {
+            const bolo = document.getElementById('bolo').value;
+            fetch('/api/pedido', {  // Faz a requisição para o backend na rota /api/pedido
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bolo: bolo })
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+</body>
+</html>
