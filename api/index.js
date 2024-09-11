@@ -13,15 +13,15 @@ let pedidos = [];
 // Middleware para permitir requisições JSON
 app.use(express.json());
 
-// Rota para receber um pedido (POST /pedido)
-app.post('/pedido', (req, res) => {
+// Rota para receber um pedido (POST /api/pedido)
+app.post('/api/pedido', (req, res) => {
   const pedido = req.body;
   pedidos.push(pedido);
   res.status(201).send('Pedido recebido com sucesso!');
 });
 
-// Rota para listar todos os pedidos (GET /pedidos)
-app.get('/pedidos', (req, res) => {
+// Rota para listar todos os pedidos (GET /api/pedidos)
+app.get('/api/pedidos', (req, res) => {
   res.json(pedidos);
 });
 
