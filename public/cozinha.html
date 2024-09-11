@@ -1,0 +1,36 @@
+<!-- public/cozinha.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cozinha - Bolos da Vovó</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 10px 0; padding: 10px; background-color: #f2f2f2; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Cozinha - Bolos da Vovó</h1>
+    <ul id="listaPedidos"></ul>
+
+    <script>
+        function carregarPedidos() {
+            fetch('/api/pedidos')  // Faz a requisição para o backend na rota /api/pedidos
+                .then(response => response.json())
+                .then(data => {
+                    const lista = document.getElementById('listaPedidos');
+                    lista.innerHTML = '';  // Limpa a lista antes de adicionar os pedidos
+                    data.forEach((pedido, index) => {
+                        const item = document.createElement('li');
+                        item.textContent = `Pedido ${index + 1}: ${pedido.bolo}`;
+                        lista.appendChild(item);
+                    });
+                })
+                .catch(error => console.error('Erro:', error));
+        }
+
+        setInterval(carregarPedidos, 5000);  // Atualiza a lista de pedidos a cada 5 segundos
+    </script>
+</body>
+</html>
