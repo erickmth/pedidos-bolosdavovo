@@ -1,7 +1,11 @@
 // api/index.js
 const express = require('express');
+const path = require('path'); // Importa o módulo path para servir arquivos estáticos
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Serve arquivos estáticos da pasta 'public'
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Lista de pedidos
 let pedidos = [];
@@ -21,4 +25,6 @@ app.get('/pedidos', (req, res) => {
   res.json(pedidos);  // Retorna todos os pedidos
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
